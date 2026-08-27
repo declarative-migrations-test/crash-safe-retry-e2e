@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://declarative-migrations-test.github.io/crash-safe-retry-e2e/schemas/evidence.schema.json",
+  "title": "Crash-safe retry evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "engine",
+    "engineVersion",
+    "sourceSha",
+    "planDigest",
+    "faultPoint",
+    "lockTransitions",
+    "finalSchemaDigest",
+    "decision",
+    "recoveryGuidance",
+    "historyVersions"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "engine": { "type": "string", "minLength": 1 },
+    "engineVersion": { "type": "string", "minLength": 1 },
+    "sourceSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "planDigest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "faultPoint": {
+      "type": ["string", "null"],
+      "enum": [
+        null,
+        "before_txn",
+        "during_ddl",
+        "after_ddl_before_history",
+        "after_history_before_ack"
+      ]
+    },
+    "lockTransitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["event", "at"],
+        "properties": {
+          "event": { "type": "string" },
+          "owner": { "type": ["string", "null"] },
+          "token": { "type": ["string", "null"] },
+          "at": { "type": "integer" }
+        }
+      }
+    },
+    "finalSchemaDigest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "decision": {
+      "enum": ["applied", "replayed", "recovered-history", "refused", "crashed"]
+    },
+    "recoveryGuidance": {
+      "type": "object",
+      "required": ["action", "writes", "reason", "next"],
+      "properties": {
+        "action": { "type": "string" },
+        "writes": { "type": "string" },
+        "reason": { "type": "string" },
+        "next": { "type": "string" },
+        "lockOwner": { "type": ["string", "null"] }
+      }
+    },
+    "historyVersions": {
+      "type": "array",
+      "items": { "type": "integer", "minimum": 1 }
+    }
+  }
+}

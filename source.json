@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "productionSources": [
+    {
+      "repository": "declarative-migrations/declarative-postgres-migrate.rs",
+      "commit": "027c81892cafc3693b550eaa74940a17b1705235"
+    },
+    {
+      "repository": "declarative-migrations/declarative-migrations-mcp-server.rs",
+      "commit": "876d7718e063219c24aa0e8b9d4e7c30424d569f"
+    }
+  ],
+  "engine": "sqlite",
+  "integrationMode": "local-file",
+  "focus": "crash-safe retry, lock ownership, and checksum refusal"
+}

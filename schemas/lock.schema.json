@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://declarative-migrations-test.github.io/crash-safe-retry-e2e/schemas/lock.schema.json",
+  "title": "Migration lock row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["owner", "token", "epoch", "expires_at"],
+  "properties": {
+    "owner": { "type": "string", "minLength": 1 },
+    "token": { "type": "string", "minLength": 1 },
+    "epoch": { "type": "integer", "minimum": 1 },
+    "expires_at": { "type": "integer" }
+  }
+}
