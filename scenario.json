@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "repository": "declarative-migrations-test/crash-safe-retry-e2e",
+  "engine": "sqlite",
+  "focus": "crash-safe retry, lock ownership, and checksum refusal",
+  "integrationMode": "local-file",
+  "requiredInvariants": [
+    "crash-before-txn-is-retryable",
+    "crash-during-ddl-rolls-back",
+    "crash-after-ddl-before-history-recovers-without-double-apply",
+    "crash-after-history-before-ack-is-idempotent",
+    "stolen-lock-refuses-writes",
+    "stale-lock-refuses-writes",
+    "checksum-mismatch-refuses-writes"
+  ],
+  "policy": {
+    "failClosed": true,
+    "credentialsInPullRequests": false,
+    "immutableProductionPins": true,
+    "destructiveFixtures": false,
+    "liveEnvironmentRequiredForCertification": false
+  }
+}

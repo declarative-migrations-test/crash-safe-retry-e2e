@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://declarative-migrations-test.github.io/crash-safe-retry-e2e/schemas/migration-plan.schema.json",
+  "title": "Reviewed migration plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "sql", "column"],
+  "properties": {
+    "version": { "type": "integer", "minimum": 1 },
+    "sql": { "type": "string", "minLength": 1 },
+    "column": { "type": "string", "minLength": 1 }
+  }
+}

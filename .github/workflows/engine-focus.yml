@@ -1,0 +1,29 @@
+name: Engine and focus E2E contract
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: engine-focus-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - name: Validate SQLite scenario and engine-specific focus
+        run: python3 -m unittest -v tests/test_contract.py tests/test_engine_focus.py
+      - name: Reject generated Python bytecode
+        run: test -z "$(find tests src -type f -name '*.pyc' -print -quit)"
