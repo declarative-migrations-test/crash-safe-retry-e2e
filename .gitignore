@@ -5,3 +5,6 @@ temp
 tmp/worktrees
 temp/worktrees
 .DS_Store
+
+# Machine-local agent instruction symlink (absolute path; never committed)
+.ores/
